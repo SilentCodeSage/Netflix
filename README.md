@@ -2,7 +2,14 @@
     - Created react app
     - Setup tailwind css
     - Header
+    - Routing
     - Login Form
+    - Signup / Signin Form
+    - Form validation 
+    - useRef hook applied for less component render
+    - firebase setup and deployed
+    - login and signup was implemented\
+    - used redux and made a slice for user     
 
 # Features
     
