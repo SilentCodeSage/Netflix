@@ -1,6 +1,8 @@
 # Netflix
     - Created react app
     - Setup tailwind css
+    - Header
+    - Login Form
 
 # Features
     
