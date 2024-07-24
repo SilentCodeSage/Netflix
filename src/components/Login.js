@@ -7,26 +7,30 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { updateProfile } from "firebase/auth";
+import { useSelector } from "react-redux";
 
 const Login = () => {
   //resuing the form for signup and signin
-  //isLogin ~ signIn
+  //isLogin => true if signed in...
   const [isLogin, setIsLogin] = useState(true);
   const [isEmailValid, setEmailValid] = useState(true);
   const [isPasswordValid, setPasswordValid] = useState(true);
-
   //useRef gives a direct referance to the dom element
   //page reerender wont hapen in the case of useRef
-  const email = useRef("");
-  const password = useRef("");
+  const name = useRef(null);
+  const email = useRef(null);
+  const password = useRef(null);
+  const user = useSelector((store) => store.user);
+  console.log(user);
 
   const toggleSignIn = () => {
     setIsLogin(!isLogin);
   };
 
+  //when signUp or signIn button is clicked
   const handleClick = () => {
     //email and password validation
-    //log
     const verificationResult = validate(
       email.current.value,
       password.current.value
@@ -35,13 +39,12 @@ const Login = () => {
     setEmailValid(emailValid);
     setPasswordValid(passwordValid);
 
-    //if email and password are not valid then dont proceed to create new use
+    //if email or password is not valid then dont proceed
 
     if (emailValid && passwordValid === false) return;
 
+    //signup logic
     if (!isLogin) {
-      //signup logic
-
       //promise handling.....
       createUserWithEmailAndPassword(
         auth,
@@ -51,14 +54,21 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
-          // ...
+          updateProfile(auth.currentUser, {
+            displayName: name.current.value,
+            photoURL: "https://example.com/jane-q-user/profile.jpg",
+          })
+            .then(() => {
+              // Profile updated!
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorCode, errorMessage);
-          // ..
         });
     } else {
       //signin logic
@@ -71,7 +81,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
-          // ...
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -97,19 +106,23 @@ const Login = () => {
             {isLogin === true ? "Sign in" : "Sign up"}
           </h1>
         </div>
+        {/* if signup show the full Name text feild */}
         {!isLogin && (
           <input
+            ref={name}
             className="my-4 p-4 rounded w-9/12 h-12 bg-gray-700 bg-opacity-55"
             type="text bg-red"
             placeholder="Full Name"
           ></input>
         )}
+        {/* email feild linked with ref for useRef */}
         <input
           ref={email}
           className="my-4 p-4 rounded w-9/12 h-12 bg-gray-700 bg-opacity-55"
           type="text bg-red"
           placeholder="Email or mobile Number"
         ></input>
+        {/* show error if email is not valid */}
         <div className="flex items-start w-9/12">
           {!isEmailValid && (
             <p className="text-red-700 mb-2 text-sm">
@@ -117,6 +130,7 @@ const Login = () => {
             </p>
           )}
         </div>
+        {/*  password linked with ref for useRef */}
         {
           <input
             ref={password}
