@@ -5,17 +5,23 @@ import VideoBackground from "./VideoBackground";
 
 const MainContainer = () => {
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
-  console.log(movies);
 
   //if movie is null then dont render the component
-  if (!movies) return;
+  console.log(movies)
+  if (!movies){
+    setTimeout(()=>{
+      console.log("movies is null");
+      
+    },1000)
+    return;
+  } 
 
-  const mainMovie = movies[3];
+  const mainMovie = movies[4];
 
   const { original_title, overview, id } = mainMovie;
 
   return (
-    <div className=" w-screen h-screen">
+    <div className=" w-screen h-screen overflow-hidden">
      
         <VideoTitle title={original_title} overview={overview} />
         <VideoBackground movieId={id} />

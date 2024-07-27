@@ -16,6 +16,9 @@
     - api call done
     - created custom hooks
     - browse page half done ie... the trailor playing behind
+    - created movie recommendation 
+    - styles better 
+    
 # Features
     
     - Login/Signup

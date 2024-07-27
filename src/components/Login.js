@@ -9,8 +9,10 @@ import {
 import { auth } from "../utils/firebase";
 import { updateProfile } from "firebase/auth";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate()
   //resuing the form for signup and signin
   //isLogin => true if signed in...
   const [isLogin, setIsLogin] = useState(true);
@@ -22,7 +24,6 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const user = useSelector((store) => store.user);
-  console.log(user);
 
   const toggleSignIn = () => {
     setIsLogin(!isLogin);
@@ -80,7 +81,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+          //navigate("/browse")
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -91,15 +92,15 @@ const Login = () => {
   };
 
   return (
-    <div className="">
+    <div className="h-screen text-white">
       <Header />
-      <div className="absolute">
+      <div className="absolute h-screen overflow-hidden">
         <img src={loginBackground} alt="Login-page"></img>
       </div>
       {/* use form libraries for big forms */}
       <form
         onClick={(e) => e.preventDefault()}
-        className="rounded-lg bg-black bg-opacity-85 absolute w-3/12 h-auto mt-36 mx-auto right-0 left-0 flex flex-col py-24 px-6 items-center"
+        className="rounded-lg bg-black bg-opacity-80 absolute w-3/12 h-auto mt-36 mx-auto right-0 left-0 flex flex-col py-24 px-6 items-center"
       >
         <div className="flex flex-col items-start w-full mb-8">
           <h1 className="text-white ml-12 text-2xl">
