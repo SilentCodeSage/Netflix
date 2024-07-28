@@ -17,6 +17,11 @@ const useNowPlayingMovies = () => {
     const json = await data.json();
 
     dispatch(addNowPlayingMovies(json.results));
+    // const genreData = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${tmdbApiKey}&language=en-US`)
+
+    // const data = await fetch("http://www.omdbapi.com/?apikey=4787b1b2&s=action");
+    // const json = await data.json();
+    // console.log(json);
   };
 };
 
