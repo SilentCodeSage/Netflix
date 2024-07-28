@@ -49,9 +49,9 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="pt-2 absolute w-full h-auto bg-gradient-to-b from-black z-20">
-      <img className="ml-24 w-48 " src={mainLogo} alt="Main-Logo"></img>
-      <div className="absolute top-4 right-4 flex items-center space-x-4 p-4">
+    <div className="pt-2 absolute w-full h-auto bg-gradient-to-b from-black z-20 flex flex-col md:flex-row">
+      <img className="md:ml-24 w-48 mx-auto" src={mainLogo} alt="Main-Logo"></img>
+      <div className="absolute top-4 right-4  items-center space-x-4 p-4 flex ">
         <button className="bg-violet-600 p-3 text-white rounded" onClick={handleGPTButton}>{isGPTpage === true?"HomePage":"GPT Search"}</button>
         <img
           className="w-11 rounded"

@@ -1,37 +1,21 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTrailer } from "../utils/movieSlice"; // Adjust the import path based on your project structure
-import { API_OPTIONS } from "../utils/constants";
+import { addTrailer } from "../utils/movieSlice"; 
 
-const useTrailerVideo = (movieId) => {
+const useTrailerVideo = (movieTitle) => {
+  const trailer = useSelector((store)=>store.movies.trailorVideo);
+
   const dispatch = useDispatch();
-  const trailer = useSelector((store) => store.movies.trailorVideo);
   useEffect(() => {
-    getTrailorData();
+    !trailer && getTrailorData();
   }, []);
-
   const getTrailorData = async () => {
-    const data = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
-      API_OPTIONS
+     const data = await fetch(
+     `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${movieTitle}+trailer&key=AIzaSyASrkvyYOfgaJzHmVPz8N_StUytQGMuolA`
     );
-    const json = await data.json();
-
-    if(json.results){
-      const trailers =  json.results.filter((data) => data.type === "Trailer");
-      const trailer = trailers[0];
-      dispatch(addTrailer(trailer));
-    }else{
-      console.log(json.results)
-    }
-     
-   
+     const json = data && await data.json();
+    //console.log(json.items[0].id.videoId)
+    json && dispatch(addTrailer(json.items[0].id.videoId))
   };
-
-  const videoSrc = trailer
-    ? `https://www.youtube.com/embed/${trailer.key}`
-    : "";
-  return { videoSrc };
 };
-//export const{videoSrc} =
 export default useTrailerVideo;

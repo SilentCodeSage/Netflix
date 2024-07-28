@@ -16,7 +16,8 @@ const Browse = () => {
     <div className="relative overflow-hidden">
       <Header />
       {isGPTpage === true ? (
-        <GptSearch />
+        <div className=""><GptSearch /></div>
+        
       ) : (
         <div>
           <MainContainer />
