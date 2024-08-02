@@ -3,36 +3,30 @@ import { useSelector } from "react-redux";
 import VideoTitle from "./VideoTitle";
 import VideoBackground from "./VideoBackground";
 import { useState } from "react";
+import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 
 const MainContainer = () => {
-  
-  const [descreption,setDescreption] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [movieName, setMovieName] = useState(null);
+  const [videoId, setVideoId] = useState(null);
+
+  useNowPlayingMovies();
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
-  const mainMovie = movies && movies[1];
 
-  useEffect(() =>{
-    fetchData();
-  })
+  useEffect(() => {
+    if (movies) {
+      const randomIndex = Math.floor(Math.random() * movies?.results.length);
+      const { title, overview, id } = movies?.results[randomIndex];
+      setMovieName(title);
+      setDescription(overview);
+      setVideoId(id);
+    }
+  }, [movies]);
 
-  const fetchData = async() =>{
-    if(!movies) return;
-    const data = await fetch(`http://www.omdbapi.com/?apikey=4787b1b2&t=${mainMovie}`);
-    const mainMovieData = await data.json();
-    setDescreption(mainMovieData.Plot);
-  }
-
-  if (!movies){
-    setTimeout(()=>{
-      console.log("movies is null");
-      
-    },1000)
-    return;
-  } 
   return (
-    <div className=" w-screen h-screen overflow-hidden">
-      
-        <VideoTitle title={mainMovie} overview={descreption} />
-        <VideoBackground movieTitle={mainMovie} />
+    <div className="fixed m-0 p-0 w-screen h-screen overflow-hidden ">
+      <VideoTitle title={movieName} overview={description} />
+      {videoId && <VideoBackground id={videoId} />}
     </div>
   );
 };

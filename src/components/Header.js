@@ -13,6 +13,7 @@ import { toggleGPT } from "../utils/gptSlice";
 const Header = () => {
   const user = useSelector((store) => store.user);
   const isGPTpage = useSelector((store) => store.gpt.showGptSearch);
+  const isNavigate = useSelector((store) => store.watch.navigate);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSignOut = () => {
@@ -25,9 +26,9 @@ const Header = () => {
       });
   };
 
-  const handleGPTButton = ()=>{
-    dispatch(toggleGPT())
-  }
+  const handleGPTButton = () => {
+    dispatch(toggleGPT());
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -36,12 +37,13 @@ const Header = () => {
         const { uid, email, displayName } = user;
         //dispatching add user when user signed in
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
-        navigate("/browse");
+
+        isNavigate && navigate("/browse");
       } else {
         // User is signed out
         //dispatching the reducer removeuser when user signsOut
         dispatch(removeUser());
-        navigate("/");
+         navigate("/");
       }
     });
 
@@ -49,23 +51,37 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="pt-2 absolute w-full h-auto bg-gradient-to-b from-black z-20 flex flex-col md:flex-row">
-      <img className="md:ml-24 w-48 mx-auto" src={mainLogo} alt="Main-Logo"></img>
-      <div className="absolute top-4 right-4  items-center space-x-4 p-4 flex ">
-        <button className="bg-violet-600 p-3 text-white rounded" onClick={handleGPTButton}>{isGPTpage === true?"HomePage":"GPT Search"}</button>
-        <img
-          className="w-11 rounded"
-          src={USER}
-          alt="user"
-        ></img>
-        {user && (
+    <div className="pt-2 z-50 fixed w-full h-auto bg-gradient-to-b from-black  flex justify-between">
+      <img
+        className="md:ml-24 w-48 object-center"
+        src={mainLogo}
+        alt="Main-Logo"
+      ></img>
+      <div className="md:top-4 md:right-4  md:mt-0 items-center justify-center space-x-4 p-4 flex md:flex-row flex-col">
+        <div className="flex">
+          <img
+            className="md:w-11 md:h-11 w-8 md:block hidden h-8 rounded md:ml-0 ml-3"
+            src={USER}
+            alt="user"
+          ></img>
+          
+        </div>
+        <div className="">
           <button
-            onClick={handleSignOut}
-            className="z-50 text-white font-3xl py-2 px-4 rounded"
+            className="bg-violet-600 md:p-3 p-2  md:text-base text-sm text-white rounded"
+            onClick={handleGPTButton}
           >
-            ▼
+            {isGPTpage === true ? "HomePage" : "GPT Search"}
           </button>
-        )}
+          {user && (
+            <button
+              onClick={handleSignOut}
+              className="z-50 text-white font-3xl py-2 px-4 rounded"
+            >
+               ▼
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

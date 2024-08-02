@@ -12,7 +12,7 @@ const usePopularMovies = () => {
   };
 
   useEffect(() => {
-    fetchPopularMovieData();
+    //fetchPopularMovieData();
   }, []);
 };
 

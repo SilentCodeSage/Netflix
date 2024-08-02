@@ -1,21 +1,34 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addTrailer } from "../utils/movieSlice"; 
 
-const useTrailerVideo = (movieTitle) => {
-  const trailer = useSelector((store)=>store.movies.trailorVideo);
-
+const useTrailerVideo = (id) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    !trailer && getTrailorData();
-  }, []);
-  const getTrailorData = async () => {
-     const data = await fetch(
-     `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${movieTitle}+trailer&key=AIzaSyASrkvyYOfgaJzHmVPz8N_StUytQGMuolA`
-    );
-     const json = data && await data.json();
-    //console.log(json.items[0].id.videoId)
-    json && dispatch(addTrailer(json.items[0].id.videoId))
-  };
+    if (id) {
+      const getTrailorData = async () => {
+        try {
+          const response = await fetch(
+            `https://api.themoviedb.org/3/movie/${id}/videos?api_key=717201877c6a679887571d65a997aebb&language=en-US`
+          );
+          if (!response.ok) {
+            throw new Error('Failed to fetch trailer data');
+          }
+          const json = await response.json();
+          if (json.results && json.results.length > 0) {
+            const trailerKey = json.results[0].key;
+            dispatch(addTrailer(trailerKey));
+          }
+        } catch (error) {
+          console.error('Error fetching trailer data:', error);
+        }
+      };
+
+      getTrailorData();
+    }
+  }, [id, dispatch]); // Dependency on `id` and `dispatch`
+
 };
+
 export default useTrailerVideo;

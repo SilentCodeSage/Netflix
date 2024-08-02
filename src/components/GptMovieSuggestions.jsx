@@ -38,20 +38,20 @@ const GptMovieSuggestions = () => {
       
       )}
       {!movies && (
-        <div className=" flex justify-center mt-36">
+        <div className=" flex justify-center mt-20 md:mt-36">
           <div className="bg-gray-900 bg-opacity-85 p-6 rounded-lg shadow-lg text-center text-white w-[80%]  md:w-1/2">
-            <h2 className=" text-2xl md:text-4xl font-extrabold tracking-wider text-blue-500">
+            <h2 className=" text-1xl md:text-4xl font-extrabold tracking-wider text-blue-500">
               How to Find Movies
             </h2>
-            <p className="mt-4 text-lg">
+            <p className="mt-4 text-base">
               To get started, type the name of a movie or a genre in the search
               bar above.
             </p>
-            <p className="mt-2 text-lg">
+            <p className="mt-2 text-base">
               For best results, try using specific keywords like "action,"
               "comedy," or the title of a movie you're interested in.
             </p>
-            <p className="mt-2 text-lg">
+            <p className="mt-2 text-base">
               You can also search by popular actors or directors to find movies
               featuring them.
             </p>

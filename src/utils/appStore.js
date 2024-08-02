@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice"
 import movieSlice from "./movieSlice";
 import gptSlice from "./gptSlice";
+import watchSlice from "./watchSlice";
 
 const appStore = configureStore(
     {
@@ -9,6 +10,7 @@ const appStore = configureStore(
             user:userReducer,
             movies:movieSlice,
             gpt:gptSlice,
+            watch:watchSlice,
         }
     }
 )

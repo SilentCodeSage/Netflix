@@ -1,9 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { API_OPTIONS } from "../utils/constants";
 import { addNowPlayingMovies } from "../utils/movieSlice";
-import run from "../utils/geminiAI";
 import Run from "../utils/geminiAI";
+import { API_OPTIONS } from "../utils/constants";
 
 const useNowPlayingMovies = () => {
   const dispatch = useDispatch();
@@ -12,20 +11,10 @@ const useNowPlayingMovies = () => {
   }, []);
 
   const getNowPlayingMovies = async () => {
-    // const data = await fetch(
-    //   "https://api.themoviedb.org/3/movie/now_playing?page=1",
-    //   API_OPTIONS
-    // );
-    // const json = await data.json();
-
-    // dispatch(addNowPlayingMovies(json.results));
-    const data = await Run("all time hit movies with different genre");
-    dispatch(addNowPlayingMovies(data));
-    // const genreData = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${tmdbApiKey}&language=en-US`)
-
-    // const data = await fetch("http://www.omdbapi.com/?apikey=4787b1b2&s=action");
-    // const json = await data.json();
-    // console.log(json);
+    const data = await fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1',API_OPTIONS);
+    const json = await data.json();
+    //console.log()
+    dispatch(addNowPlayingMovies(json));
   };
 };
 

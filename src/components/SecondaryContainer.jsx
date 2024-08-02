@@ -3,14 +3,14 @@ import MovieList from "./MovieList";
 import { useSelector } from "react-redux";
 
 const SecondaryContainer = () => {
-  const movies = useSelector((store) => store.movies);
   return (
-    <div className="bg-black">
-      <div className="relative -mt-[250px] z-50 ">
-        <MovieList title={"Classic Wonders"} movies={movies.nowPlayingMovies} />
-        {/* <MovieList title={"Trending"} movies={movies.nowPlayingMovies} /> */}
-        {/* <MovieList title={"Horror"} movies={movies.nowPlayingMovies} /> */}
-        {/* <MovieList title={"Fantasy"} movies={movies.nowPlayingMovies} /> */}
+    <div className=" ">
+      <div className="p-12 relative mt-[850px] z-20 bg-opacity-50 bg-black">
+      <h1 className="text-white text-center font-bold text-3xl">^</h1>
+        <MovieList />
+        <MovieList />
+        <MovieList />
+        <MovieList />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import SecondaryContainer from "./SecondaryContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
 import GptSearch from "./GptSearch";
 import { useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
 
 const Browse = () => {
   //fetch data from TMDB and update the store
@@ -19,9 +20,10 @@ const Browse = () => {
         <div className=""><GptSearch /></div>
         
       ) : (
-        <div>
+        <div className="overflow-hidden">
           <MainContainer />
           <SecondaryContainer />
+          <Outlet />
         </div>
       )}
     </div>
