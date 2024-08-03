@@ -10,7 +10,7 @@ import { Outlet } from "react-router-dom";
 const Browse = () => {
   //fetch data from TMDB and update the store
   useNowPlayingMovies();
-  //usePopularMovies();
+  usePopularMovies();
   const isGPTpage = useSelector((store) => store.gpt.showGptSearch);
 
   return (

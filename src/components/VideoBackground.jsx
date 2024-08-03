@@ -7,7 +7,7 @@ const VideoBackground = ({ id }) => {
   const trailer = useSelector((store) => store.movies.trailorVideo);
 
   return (
-    <div className="-z-10 absolute w-screen h-screen overflow-hidden">
+    <div className="-z-10 md:mt-0 mt-20 absolute w-screen h-screen overflow-hidden">
       {
         //trailer && console.log(trailer)
       }

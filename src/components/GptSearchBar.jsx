@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import run from "../utils/geminiAI";
+import Run from "../utils/geminiAI";
 import { useDispatch } from "react-redux";
 import { setMovieSearchResults, setShowGptSuggesstionShimmer } from "../utils/gptSlice";
 
@@ -10,20 +10,22 @@ const GptSearchBar = () => {
   const handleSearch = async () => {
     dispatch(setShowGptSuggesstionShimmer(true))
     //gives the searchText as prompt
-    const result = await run(searchText.current.value);
-    const ans = Promise.all(
+    const result = await Run(searchText.current.value);
+    console.log(result)
+    const ans = await Promise.all(
       result &&
         result.map(async (data) => {
           console.log(data);
           const searchResults = await fetch(
-            `https://www.omdbapi.com/?t=${data}&apikey=4787b1b2`
+            `https://api.themoviedb.org/3/search/movie?api_key=717201877c6a679887571d65a997aebb&query=${data}`
           );
           const info = await searchResults.json();
           return info;
         })
     );
     const movieSearchResults = await ans;
-    dispatch(setMovieSearchResults(movieSearchResults));
+    console.log(movieSearchResults);
+    movieSearchResults && dispatch(setMovieSearchResults(movieSearchResults));
   };
   return (
     <div

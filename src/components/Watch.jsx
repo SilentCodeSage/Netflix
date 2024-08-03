@@ -29,12 +29,10 @@ const Watch = () => {
     >
       <Header />
       <div className="flex flex-col justify-center p-24 h-screen">
-        <div className="flex justify-evenly items-center">
-          <div>
+        <div className="flex md:flex-row flex-col justify-evenly items-center">
+          <div className="md:mt-0 mt-24">
             <iframe
-              className="rounded-3xl  shadow-2xl"
-              width="1200"
-              height="700"
+              className="md:rounded-3xl  shadow-2xl md:w-[1200px] md:h-[700px] w-screen h-72" 
               src={`https://www.youtube.com/embed/${trailer}`}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -43,9 +41,9 @@ const Watch = () => {
             ></iframe>
           </div>
           <div>
-            <div className="duration-300 transition-transform transform hover:scale-105 relative flex-none opacity-100 cursor-pointer shadow-2xl z-10 rounded-b">
+            <div className="duration-300 md:w-auto w-screen transition-transform transform hover:scale-105 relative flex-none opacity-100 cursor-pointer shadow-2xl z-10 rounded-b">
               <img
-                className="w-80 h-[600px] rounded-lg"
+                className="md:w-80 w-96 md:mt-0 mt-3  md:h-[600px] h-[500px] rounded-lg"
                 src={IMG_CDN + info.poster_path}
                 alt="MovieCard"
               />

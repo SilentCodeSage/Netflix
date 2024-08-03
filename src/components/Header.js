@@ -51,7 +51,7 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="pt-2 z-50 fixed w-full h-auto bg-gradient-to-b from-black  flex justify-between">
+    <div className="pt-2 z-50 fixed w-full h-auto  bg-gradient-to-b from-gray-950 via-gray-900 to-transparent flex justify-between">
       <img
         className="md:ml-24 w-48 object-center"
         src={mainLogo}
@@ -59,14 +59,14 @@ const Header = () => {
       ></img>
       <div className="md:top-4 md:right-4  md:mt-0 items-center justify-center space-x-4 p-4 flex md:flex-row flex-col">
         <div className="flex">
-          <img
+          {/* <img
             className="md:w-11 md:h-11 w-8 md:block hidden h-8 rounded md:ml-0 ml-3"
             src={USER}
             alt="user"
-          ></img>
+          ></img> */}
           
         </div>
-        <div className="">
+        <div className="flex">
           <button
             className="bg-violet-600 md:p-3 p-2  md:text-base text-sm text-white rounded"
             onClick={handleGPTButton}
@@ -78,7 +78,7 @@ const Header = () => {
               onClick={handleSignOut}
               className="z-50 text-white font-3xl py-2 px-4 rounded"
             >
-               ▼
+               <img className="w-8 h-8 rounded bg-opacity-50 " alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDArB9zT_e6hrQJFY1CMcSyD9ehtK37k8U5Q&s"></img>
             </button>
           )}
         </div>

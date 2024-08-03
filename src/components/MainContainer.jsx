@@ -24,7 +24,7 @@ const MainContainer = () => {
   }, [movies]);
 
   return (
-    <div className="fixed m-0 p-0 w-screen h-screen overflow-hidden ">
+    <div className="fixed md:bg-none bg-black m-0 p-0 w-screen h-screen overflow-hidden ">
       <VideoTitle title={movieName} overview={description} />
       {videoId && <VideoBackground id={videoId} />}
     </div>
